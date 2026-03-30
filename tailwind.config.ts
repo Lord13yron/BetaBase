@@ -51,13 +51,24 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        clay: "#C17A5A",
+        granite: "#3A3330",
+        chalk: "#F5EFE6",
+        sand: "#E8D5BE",
+        stone: "#8C7B6B",
+        fog: "#D6CAB8",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        serif: ['"DM Serif Display"', "serif"],
+        mono: ['"DM Mono"', "monospace"],
+      },
     },
   },
+
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

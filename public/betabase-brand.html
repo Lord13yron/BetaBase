@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetaBase — Brand Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --clay:    #C17A5A;
+    --sand:    #E8D5BE;
+    --stone:   #8C7B6B;
+    --chalk:   #F5EFE6;
+    --granite: #3A3330;
+    --fog:     #D6CAB8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--chalk); color: var(--granite); font-family: 'DM Mono', monospace; overflow-x: hidden; }
+
+  .page-header { padding: 48px 64px 32px; border-bottom: 1px solid var(--fog); display: flex; justify-content: space-between; align-items: flex-end; }
+  .page-header h1 { font-family: 'DM Mono', monospace; font-weight: 300; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+  .page-header span { font-size: 11px; letter-spacing: 0.15em; color: var(--fog); text-transform: uppercase; }
+
+  .hero { padding: 80px 64px; display: flex; flex-direction: column; align-items: center; gap: 48px; background: var(--granite); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(193,122,90,0.15) 0%, transparent 70%); pointer-events: none; }
+
+  .logo-lockup { display: flex; align-items: center; gap: 20px; animation: fadeUp 0.8s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-text .brand { font-family: 'DM Serif Display', serif; font-size: 42px; color: var(--chalk); letter-spacing: -0.02em; }
+  .logo-text .brand span { color: var(--clay); }
+  .logo-text .tagline { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-top: 6px; }
+
+  .logo-variants { display: flex; gap: 48px; align-items: center; animation: fadeUp 0.8s 0.15s ease both; }
+  .variant { display: flex; align-items: center; gap: 10px; opacity: 0.6; }
+  .variant .brand { font-family: 'DM Serif Display', serif; color: var(--chalk); }
+  .variant .brand span { color: var(--clay); }
+  .variant.md .brand { font-size: 24px; }
+  .variant.sm .brand { font-size: 16px; }
+
+  .icon-alone { animation: fadeUp 0.8s 0.3s ease both; opacity: 0.5; display: flex; gap: 24px; align-items: center; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--fog); border-top: 1px solid var(--fog); }
+  .cell { background: var(--chalk); padding: 48px 56px; }
+  .cell.dark { background: var(--granite); }
+  .cell.sand-bg { background: var(--sand); }
+  .cell-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); margin-bottom: 32px; display: block; }
+
+  .swatches { display: flex; flex-direction: column; gap: 12px; }
+  .swatch { display: flex; align-items: center; gap: 16px; }
+  .swatch-block { width: 48px; height: 28px; border-radius: 4px; flex-shrink: 0; }
+  .swatch-info .name { font-size: 12px; font-weight: 500; color: var(--granite); display: block; }
+  .swatch-info .hex { font-size: 10px; color: var(--stone); letter-spacing: 0.1em; }
+
+  .type-samples { display: flex; flex-direction: column; gap: 24px; }
+  .type-sample .label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-bottom: 6px; }
+  .t-display { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--granite); line-height: 1.1; }
+  .t-display-italic { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 28px; color: var(--clay); line-height: 1.2; }
+  .t-body { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--granite); line-height: 1.7; font-weight: 300; }
+  .t-ui { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+
+  .taglines { display: flex; flex-direction: column; gap: 20px; }
+  .tl { padding: 16px 20px; border-left: 2px solid var(--clay); font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--chalk); line-height: 1.4; }
+  .tl em { font-style: italic; color: var(--clay); }
+
+  .ui-preview { background: var(--granite); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(58,51,48,0.3); border: 1px solid rgba(255,255,255,0.06); }
+  .ui-nav { background: rgba(255,255,255,0.04); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .ui-nav-logo { display: flex; align-items: center; gap: 8px; }
+  .ui-nav-logo span { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--chalk); }
+  .ui-nav-logo span b { color: var(--clay); font-weight: 400; }
+  .ui-nav-links { display: flex; gap: 20px; }
+  .ui-nav-links a { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-decoration: none; }
+  .ui-body { padding: 20px; }
+  .ui-search { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .ui-search span { font-size: 10px; letter-spacing: 0.12em; color: var(--stone); }
+  .ui-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .ui-card { background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+  .ui-card-thumb { height: 52px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .ui-card-thumb.c1 { background: linear-gradient(135deg, #3A3330, #5C4033); }
+  .ui-card-thumb.c2 { background: linear-gradient(135deg, #4A3828, #7A5540); }
+  .ui-card-thumb.c3 { background: linear-gradient(135deg, #362E2B, #614535); }
+  .ui-card-info { padding: 8px 10px; }
+  .ui-card-info .grade { font-size: 11px; font-weight: 500; color: var(--clay); font-family: 'DM Mono', monospace; }
+  .ui-card-info .name { font-size: 9px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .ui-card-info .views { font-size: 8px; color: rgba(140,123,107,0.6); margin-top: 4px; }
+
+  .full-cell { background: var(--sand); padding: 56px; border-top: 1px solid var(--fog); }
+  .usage-row { display: flex; gap: 48px; margin-top: 32px; flex-wrap: wrap; align-items: flex-start; }
+  .usage-item { display: flex; flex-direction: column; gap: 10px; }
+  .usage-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 100px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; }
+  .pill-clay { background: var(--clay); color: white; }
+  .pill-outline { background: transparent; border: 1px solid var(--stone); color: var(--granite); }
+  .pill-dark { background: var(--granite); color: var(--chalk); }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .icon-grid { display: flex; gap: 16px; margin-top: 4px; }
+  .icon-box { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .ib-dark { background: var(--granite); }
+  .ib-clay { background: var(--clay); }
+  .ib-sand { background: var(--fog); }
+
+  footer { padding: 32px 64px; border-top: 1px solid var(--fog); display: flex; justify-content: space-between; align-items: center; }
+  footer span { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fog); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>BetaBase — Brand Identity System</h1>
+  <span>v1.0 · 2026</span>
+</div>
+
+<div class="hero">
+  <div class="logo-lockup">
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="1.5"/>
+      <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="1.5"/>
+      <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="1.5"/>
+      <path d="M10 36 Q28 41 46 36" stroke="#C17A5A" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+      <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="1.5"/>
+      <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="28" cy="12" r="2" fill="#C17A5A"/>
+      <circle cx="17" cy="22" r="1.5" fill="#C17A5A" opacity="0.7"/>
+      <circle cx="39" cy="20" r="1.5" fill="#C17A5A" opacity="0.7"/>
+    </svg>
+    <div class="logo-text">
+      <div class="brand">Beta<span>Base</span></div>
+      <div class="tagline">Community Beta · Every Gym · Every Route</div>
+    </div>
+  </div>
+
+  <div class="logo-variants">
+    <div class="variant md">
+      <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
+        <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2"/>
+        <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2"/>
+        <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2"/>
+        <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2"/>
+        <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="28" cy="12" r="2.5" fill="#C17A5A"/>
+      </svg>
+      <span class="brand">Beta<span>Base</span></span>
+    </div>
+    <div class="variant sm">
+      <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
+        <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2.5"/>
+        <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2.5"/>
+        <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2.5"/>
+        <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2.5"/>
+        <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="28" cy="12" r="3" fill="#C17A5A"/>
+      </svg>
+      <span class="brand">Beta<span>Base</span></span>
+    </div>
+  </div>
+
+  <div class="icon-alone">
+    <svg width="36" height="36" viewBox="0 0 56 56" fill="none">
+      <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="1.5"/>
+      <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="1.5"/>
+      <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="1.5"/>
+      <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="1.5"/>
+      <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="28" cy="12" r="2" fill="#C17A5A"/>
+    </svg>
+    <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
+      <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2"/>
+      <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2"/>
+      <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2"/>
+      <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2"/>
+      <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="28" cy="12" r="2.5" fill="#C17A5A"/>
+    </svg>
+    <svg width="14" height="14" viewBox="0 0 56 56" fill="none">
+      <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="3"/>
+      <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="3"/>
+      <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="3"/>
+      <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="3"/>
+      <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="28" cy="12" r="3.5" fill="#C17A5A"/>
+    </svg>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="cell">
+    <span class="cell-label">Color Palette</span>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch-block" style="background:#C17A5A"></div><div class="swatch-info"><span class="name">Clay</span><span class="hex">#C17A5A — Primary accent</span></div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#3A3330"></div><div class="swatch-info"><span class="name">Granite</span><span class="hex">#3A3330 — Primary dark</span></div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#F5EFE6; border:1px solid #D6CAB8"></div><div class="swatch-info"><span class="name">Chalk</span><span class="hex">#F5EFE6 — Background</span></div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#E8D5BE"></div><div class="swatch-info"><span class="name">Sand</span><span class="hex">#E8D5BE — Secondary bg</span></div></div>
+      <div class="swatch"><div class="swatch-block" style="background:#8C7B6B"></div><div class="swatch-info"><span class="name">Stone</span><span class="hex">#8C7B6B — Muted text</span></div></div>
+    </div>
+  </div>
+
+  <div class="cell sand-bg">
+    <span class="cell-label">Typography</span>
+    <div class="type-samples">
+      <div class="type-sample"><div class="label">Display — DM Serif Display</div><div class="t-display">Find the move.</div></div>
+      <div class="type-sample"><div class="label">Display Italic — accent use</div><div class="t-display-italic">Send the climb.</div></div>
+      <div class="type-sample"><div class="label">Body — DM Mono Light</div><div class="t-body">Upload beta videos for any route at any gym. Watch, learn, and send your project.</div></div>
+      <div class="type-sample"><div class="label">UI Labels — DM Mono Caps</div><div class="t-ui">V6 · Overhang · 14 Videos</div></div>
+    </div>
+  </div>
+
+  <div class="cell dark">
+    <span class="cell-label">Tagline Options</span>
+    <div class="taglines">
+      <div class="tl">Watch. Learn. <em>Send.</em></div>
+      <div class="tl">Every route has a secret. <em>Find yours.</em></div>
+      <div class="tl">Community beta for <em>every climb.</em></div>
+      <div class="tl"><em>Your gym. Your beta.</em> One place.</div>
+    </div>
+  </div>
+
+  <div class="cell dark">
+    <span class="cell-label">UI Preview</span>
+    <div class="ui-preview">
+      <div class="ui-nav">
+        <div class="ui-nav-logo">
+          <svg width="18" height="18" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="2.5" fill="#C17A5A"/>
+          </svg>
+          <span>Beta<b>Base</b></span>
+        </div>
+        <div class="ui-nav-links"><a href="#">Gyms</a><a href="#">Upload</a><a href="#">Sign in</a></div>
+      </div>
+      <div class="ui-body">
+        <div class="ui-search">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8C7B6B" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span>Search gym or route...</span>
+        </div>
+        <div class="ui-cards">
+          <div class="ui-card"><div class="ui-card-thumb c1">🧗</div><div class="ui-card-info"><div class="grade">V7</div><div class="name">The Slab King</div><div class="views">8 beta videos</div></div></div>
+          <div class="ui-card"><div class="ui-card-thumb c2">🏔️</div><div class="ui-card-info"><div class="grade">5.11c</div><div class="name">Overhang No. 4</div><div class="views">3 beta videos</div></div></div>
+          <div class="ui-card"><div class="ui-card-thumb c3">🪨</div><div class="ui-card-info"><div class="grade">V4</div><div class="name">Crimpy Crisp</div><div class="views">11 beta videos</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-cell">
+  <span class="cell-label">UI Components & Usage</span>
+  <div class="usage-row">
+    <div class="usage-item">
+      <span class="usage-label">Buttons</span>
+      <div class="btns">
+        <div class="pill pill-clay">Upload Beta</div>
+        <div class="pill pill-outline">Browse Routes</div>
+        <div class="pill pill-dark">Sign Up Free</div>
+      </div>
+    </div>
+    <div class="usage-item">
+      <span class="usage-label">Icon on Backgrounds</span>
+      <div class="icon-grid">
+        <div class="icon-box ib-dark">
+          <svg width="26" height="26" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="2.5" fill="#C17A5A"/>
+          </svg>
+        </div>
+        <div class="icon-box ib-clay">
+          <svg width="26" height="26" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="white" stroke-width="2"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="white" stroke-width="2"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="white" stroke-width="2"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="white" stroke-width="2"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="2.5" fill="white"/>
+          </svg>
+        </div>
+        <div class="icon-box ib-sand">
+          <svg width="26" height="26" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#3A3330" stroke-width="2"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="#3A3330" stroke-width="2"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="#3A3330" stroke-width="2"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#3A3330" stroke-width="2"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="#3A3330" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="2.5" fill="#C17A5A"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="usage-item">
+      <span class="usage-label">Favicon Sizes</span>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:4px">
+        <div style="width:32px;height:32px;background:#3A3330;border-radius:8px;display:flex;align-items:center;justify-content:center">
+          <svg width="20" height="20" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="2.5"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="2.5"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="2.5"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="2.5"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="3" fill="#C17A5A"/>
+          </svg>
+        </div>
+        <div style="width:16px;height:16px;background:#3A3330;border-radius:4px;display:flex;align-items:center;justify-content:center">
+          <svg width="10" height="10" viewBox="0 0 56 56" fill="none">
+            <ellipse cx="28" cy="44" rx="18" ry="5" fill="none" stroke="#C17A5A" stroke-width="3"/>
+            <line x1="10" y1="28" x2="10" y2="44" stroke="#C17A5A" stroke-width="3"/>
+            <line x1="46" y1="28" x2="46" y2="44" stroke="#C17A5A" stroke-width="3"/>
+            <ellipse cx="28" cy="28" rx="18" ry="5" fill="none" stroke="#F5EFE6" stroke-width="3"/>
+            <path d="M20 28 L28 12 L36 28" fill="none" stroke="#F5EFE6" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="28" cy="12" r="4" fill="#C17A5A"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>BetaBase Brand Identity</span>
+  <span>Confidential · Internal Use</span>
+</footer>
+</body>
+</html>

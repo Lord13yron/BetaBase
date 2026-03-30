@@ -1,29 +1,65 @@
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { createClient } from "@/lib/supabase/server";
-import { LogoutButton } from "./logout-button";
+"use client";
 
-export async function AuthButton() {
-  const supabase = await createClient();
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { User } from "@supabase/supabase-js";
+import { UserProfile } from "@/app/types/types";
+import Avatar from "./Avatar";
+import { useRouter } from "next/navigation";
 
-  // You can also use getUser() which will be slower.
-  const { data } = await supabase.auth.getClaims();
+export function AuthButton({ isDrawer = false }: { isDrawer?: boolean }) {
+  const supabase = createClient();
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const router = useRouter();
 
-  const user = data?.claims;
+  useEffect(() => {
+    const fetchProfile = async (userId: string) => {
+      const { data } = await supabase
+        .from("user_profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
+      setProfile(data);
+    };
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        fetchProfile(currentUser.id);
+      } else {
+        setProfile(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase]);
 
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <LogoutButton />
+    <div
+      onClick={() => router.push(`/profile`)}
+      className="hover:cursor-pointer"
+    >
+      {profile ? (
+        <Avatar profile={profile} size="small" />
+      ) : (
+        <div
+          className={`w-10 h-10
+             rounded-full bg-[#C17A5A]/15 ring-2 ring-[#C17A5A]/30 flex items-center justify-center`}
+        ></div>
+      )}
     </div>
   ) : (
     <div className="flex gap-2">
-      <Button asChild size="sm" variant={"outline"}>
-        <Link href="/auth/login">Sign in</Link>
-      </Button>
-      <Button asChild size="sm" variant={"default"}>
-        <Link href="/auth/sign-up">Sign up</Link>
-      </Button>
+      <button
+        className={`text-[10px] tracking-widest uppercase text-stone hover:text-granite transition-colors ${isDrawer ? "block" : "hidden md:block"}`}
+        onClick={() => router.push(`/auth/login`)}
+      >
+        Sign in
+      </button>
     </div>
   );
 }
