@@ -8,7 +8,7 @@ export type Route = {
   wall_id: number;
   wall_name: string;
   color: string;
-  emoji?: string;
+
   type?: string;
   gym_name: string;
 };
@@ -16,7 +16,8 @@ export type Route = {
 export type ClimbType = "Bouldering" | "Lead" | "Top Rope";
 
 export interface Gym {
-  id: string;
+  // id: string;
+  id: number;
   name: string;
   city: string;
   province: string;
@@ -67,6 +68,7 @@ export interface UserProfile {
   home_gym?: string;
   created_at: string;
   height?: number;
+  is_superuser: boolean;
 }
 
 export interface UserProfileWithCounts extends UserProfile {
@@ -76,3 +78,24 @@ export interface UserProfileWithCounts extends UserProfile {
 
 export type Status = "idle" | "checking" | "available" | "taken" | "invalid";
 export type Step = "gym" | "wall" | "route";
+
+export interface ContactSubmission {
+  id: number;
+  created_at: string;
+  name: string;
+  email: string;
+  role: string | null;
+  message: string;
+  read: boolean;
+}
+
+export interface GymAdmin {
+  user_id: string;
+  gym_id: number;
+  username: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  gym_name: string;
+  gym_slug: string;
+  created_at: string;
+}

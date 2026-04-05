@@ -1,5 +1,7 @@
 import {
+  ContactSubmission,
   Gym,
+  GymAdmin,
   Route,
   UserProfileWithCounts,
   VideoWithDetails,
@@ -35,7 +37,7 @@ export const getGyms = unstable_cache(
     return data as Gym[];
   },
   ["gyms-list"], // cache key — unique tag for this query
-  { revalidate: 1, tags: ["gyms-list"] }, // false = cache until next deployment; or use a number (seconds)
+  { revalidate: 3600, tags: ["gyms-list"] }, // false = cache until next deployment; or use a number (seconds)
 );
 
 // export async function getGymById(gymId: string) {
@@ -52,7 +54,7 @@ export const getGyms = unstable_cache(
 //   return gymData as Gym;
 // }
 
-export const getGymById = (gymId: string) =>
+export const getGymById = (gymId: number) =>
   unstable_cache(
     async () => {
       // No cookies() here — this is public data, anon key is sufficient
@@ -68,8 +70,6 @@ export const getGymById = (gymId: string) =>
 
       if (!data) notFound();
 
-      // if (error) throw new Error("Failed to fetch gym", error);
-      // return data as Gym;
       if (error) {
         if (error.code === "PGRST116") return null; // no rows found
         throw new Error("Failed to fetch gym");
@@ -77,7 +77,7 @@ export const getGymById = (gymId: string) =>
       return data as Gym;
     },
     [`gym-${gymId}`], // cache key — unique tag for this query
-    { revalidate: 1, tags: [`gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
+    { revalidate: 3600, tags: [`gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
   )();
 
 // export async function getRoutesByGymId(gymId: string) {
@@ -93,7 +93,7 @@ export const getGymById = (gymId: string) =>
 //   return routeData as Route[];
 // }
 
-export const getRoutesByGymId = (gymId: string) =>
+export const getRoutesByGymId = (gymId: number) =>
   unstable_cache(
     async () => {
       // No cookies() here — this is public data, anon key is sufficient
@@ -112,7 +112,7 @@ export const getRoutesByGymId = (gymId: string) =>
       return data as Route[];
     },
     [`routes-gym-${gymId}`], // cache key — unique tag for this query
-    { revalidate: 1, tags: [`routes-gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
+    { revalidate: 3600, tags: [`routes-gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
   )();
 
 // export async function getWallsByGymId(gymId: string) {
@@ -128,7 +128,7 @@ export const getRoutesByGymId = (gymId: string) =>
 //   return wallData as Wall[];
 // }
 
-export const getWallsByGymId = (gymId: string) =>
+export const getWallsByGymId = (gymId: number) =>
   unstable_cache(
     async () => {
       // No cookies() here — this is public data, anon key is sufficient
@@ -147,7 +147,7 @@ export const getWallsByGymId = (gymId: string) =>
       return data as Wall[];
     },
     [`walls-gym-${gymId}`], // cache key — unique tag for this query
-    { revalidate: 1, tags: [`walls-gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
+    { revalidate: 3600, tags: [`walls-gym-${gymId}`] }, // false = cache until next deployment; or use a number (seconds)
   )();
 
 // export async function getVideosByRouteId(routeId: number) {
@@ -225,7 +225,7 @@ export const getRouteById = (routeId: number) =>
       return data as Route;
     },
     [`route-${routeId}`], // cache key — unique tag for this query
-    { revalidate: 1, tags: [`route-${routeId}`] }, // false = cache until next deployment; or use a number (seconds)
+    { revalidate: 3600, tags: [`route-${routeId}`] }, // false = cache until next deployment; or use a number (seconds)
   )();
 
 export async function getUserProfile() {
@@ -275,6 +275,22 @@ export async function getProfileByUsername(username: string) {
   return data as UserProfileWithCounts;
 }
 
+export async function getIsGymAdmin(gymId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims;
+  if (!user) return false;
+
+  const { data: adminRow } = await supabase
+    .from("gym_admins")
+    .select("id")
+    .eq("gym_id", gymId)
+    .eq("user_id", user.sub)
+    .single();
+
+  return !!adminRow;
+}
+
 export async function getAllRoutes() {
   const supabase = createSupabaseClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -290,4 +306,40 @@ export async function getAllRoutes() {
     throw new Error("Failed to fetch routes", error);
   }
   return routes as Route[];
+}
+
+export async function getSuperadminGyms(): Promise<Gym[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("gyms_with_counts")
+    .select("*")
+    .order("name");
+
+  if (error) throw new Error(error.message);
+  return data ?? [];
+}
+
+export async function getSuperadminGymAdmins(): Promise<GymAdmin[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("gym_admins_with_details")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+  return data ?? [];
+}
+
+export async function getContactSubmissions(): Promise<ContactSubmission[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("contact_submissions")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+  return data ?? [];
 }

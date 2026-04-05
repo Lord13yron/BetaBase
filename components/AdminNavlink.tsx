@@ -4,10 +4,9 @@
 // import { createClient } from "@/lib/supabase/client";
 // import { User } from "@supabase/supabase-js";
 // import { UserProfile } from "@/app/types/types";
-// import Avatar from "./Avatar";
 // import { useRouter } from "next/navigation";
 
-// export function AuthButton({ isDrawer = false }: { isDrawer?: boolean }) {
+// export function AdminNavlink() {
 //   const supabase = createClient();
 //   const [user, setUser] = useState<User | null>(null);
 //   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -39,29 +38,10 @@
 //   }, [supabase]);
 
 //   return user ? (
-//     <div
-//       onClick={() => router.push(`/profile`)}
-//       className="hover:cursor-pointer"
-//     >
-//       {profile ? (
-//         <Avatar profile={profile} size="small" />
-//       ) : (
-//         <div
-//           className={`w-10 h-10
-//              rounded-full bg-[#C17A5A]/15 ring-2 ring-[#C17A5A]/30 flex items-center justify-center`}
-//         ></div>
-//       )}
+//     <div onClick={() => router.push(`/admin`)} className="hover:cursor-pointer">
+//         {profile?.is_superuser && <p>Admin</p>}
 //     </div>
-//   ) : (
-//     <div className="flex gap-2">
-//       <button
-//         className={`text-[10px] tracking-widest uppercase text-stone hover:text-granite transition-colors ${isDrawer ? "block" : "hidden md:block"}`}
-//         onClick={() => router.push(`/auth/login`)}
-//       >
-//         Sign in
-//       </button>
-//     </div>
-//   );
+//   ) : null;
 // }
 
 "use client";
@@ -70,11 +50,9 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { UserProfile } from "@/app/types/types";
-import Avatar from "./Avatar";
 import { useRouter } from "next/navigation";
-import { LogoutButton } from "./logout-button";
 
-export function AuthButton({ isDrawer = false }: { isDrawer?: boolean }) {
+export function AdminNavlink() {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -105,31 +83,12 @@ export function AuthButton({ isDrawer = false }: { isDrawer?: boolean }) {
     return () => subscription.unsubscribe();
   }, [supabase]);
 
-  return user ? (
-    <div
-      onClick={() => router.push(`/profile`)}
-      className="hover:cursor-pointer"
+  return user && profile?.is_superuser ? (
+    <button
+      onClick={() => router.push(`/admin`)}
+      className="text-[10px] tracking-widest uppercase bg-clay text-chalk px-3 py-1.5 rounded-sm hover:bg-clay/80 transition-colors"
     >
-      {profile ? (
-        <div className="flex gap-4 items-center">
-          <Avatar profile={profile} size="small" />
-          <LogoutButton />
-        </div>
-      ) : (
-        <div
-          className={`w-10 h-10
-             rounded-full bg-[#C17A5A]/15 ring-2 ring-[#C17A5A]/30 flex items-center justify-center`}
-        ></div>
-      )}
-    </div>
-  ) : (
-    <div className="flex gap-2">
-      <button
-        className={`text-[10px] tracking-widest uppercase text-stone hover:text-granite transition-colors ${isDrawer ? "block" : "hidden md:block"}`}
-        onClick={() => router.push(`/auth/login`)}
-      >
-        Sign in
-      </button>
-    </div>
-  );
+      Admin
+    </button>
+  ) : null;
 }

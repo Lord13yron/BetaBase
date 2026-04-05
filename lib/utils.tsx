@@ -86,3 +86,41 @@ export function getInitials(
   }
   return profile.email.slice(0, 2).toUpperCase();
 }
+
+export function convertCmToFtIn(height: string): string {
+  const totalIn = Number(height) / 2.54;
+  return "" + Math.floor(totalIn / 12) + "'" + Math.round(totalIn % 12) + '"';
+}
+
+export const HOLD_COLORS = [
+  { name: "White", hex: "#FFFFFF" },
+  { name: "Black", hex: "#1A1A1A" },
+  { name: "Red", hex: "#E53E3E" },
+  { name: "Blue", hex: "#3182CE" },
+  { name: "Yellow", hex: "#d8f420" },
+  { name: "Green", hex: "#38A169" },
+  { name: "Orange", hex: "#DD6B20" },
+  { name: "Purple", hex: "#805AD5" },
+  { name: "Pink", hex: "#D53F8C" },
+  { name: "Grey", hex: "#718096" },
+];
+
+export function gradeToNumber(grade: string): number {
+  // V-grades: V0, V1, V2, ...
+  const vMatch = grade.match(/^V(\d+)/i);
+  if (vMatch) return parseInt(vMatch[1], 10);
+
+  // YDS: 5.6, 5.7, 5.10a, 5.11b+, etc.
+  const ydsMatch = grade.match(/^5\.(\d+)([abcd]?)([+-]?)$/i);
+  if (ydsMatch) {
+    const base = parseInt(ydsMatch[1], 10);
+    const letter = ydsMatch[2].toLowerCase();
+    const mod = ydsMatch[3];
+    const letterVal: Record<string, number> = { "": 0, a: 0, b: 1, c: 2, d: 3 };
+    const modVal: Record<string, number> = { "": 0, "+": 0.5, "-": -0.5 };
+    // Offset by 100 so YDS sorts after V-grades in a mixed list
+    return 100 + base * 10 + (letterVal[letter] ?? 0) + (modVal[mod] ?? 0);
+  }
+
+  return Infinity; // unknown grades go to the end
+}

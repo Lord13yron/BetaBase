@@ -3,193 +3,12 @@
 // import { useEffect, useState } from "react";
 // import { useRouter } from "next/navigation";
 // import { createClient } from "@/lib/supabase/client";
-
-// // ─── Types ────────────────────────────────────────────────────────────────────
-
-// type Gym = {
-//   id: string;
-//   name: string;
-//   city: string;
-//   province: string;
-//   slug: string;
-// };
-
-// type Wall = {
-//   id: string;
-//   name: string;
-// };
-
-// type Route = {
-//   id: string;
-//   name: string;
-//   grade: string;
-// };
-
-// type Step = "gym" | "wall" | "route";
-
-// // ─── Step indicator ───────────────────────────────────────────────────────────
-
-// const STEPS: { key: Step; label: string }[] = [
-//   { key: "gym", label: "Gym" },
-//   { key: "wall", label: "Wall" },
-//   { key: "route", label: "Route" },
-// ];
-
-// function StepIndicator({ current }: { current: Step }) {
-//   const currentIndex = STEPS.findIndex((s) => s.key === current);
-//   return (
-//     <div className="flex items-center gap-2 mb-10">
-//       {STEPS.map((step, i) => {
-//         const done = i < currentIndex;
-//         const active = i === currentIndex;
-//         return (
-//           <div key={step.key} className="flex items-center gap-2">
-//             <div className="flex items-center gap-1.5">
-//               <div
-//                 className={`
-//                   w-5 h-5 rounded-full flex items-center justify-center
-//                   font-mono text-[9px] tracking-widest transition-colors duration-200
-//                   ${done ? "bg-clay text-chalk" : active ? "bg-granite text-chalk" : "bg-fog text-stone"}
-//                 `}
-//               >
-//                 {done ? (
-//                   <svg
-//                     width="8"
-//                     height="8"
-//                     viewBox="0 0 10 10"
-//                     fill="none"
-//                     xmlns="http://www.w3.org/2000/svg"
-//                   >
-//                     <path
-//                       d="M2 5l2.5 2.5L8 3"
-//                       stroke="currentColor"
-//                       strokeWidth="1.5"
-//                       strokeLinecap="round"
-//                       strokeLinejoin="round"
-//                     />
-//                   </svg>
-//                 ) : (
-//                   i + 1
-//                 )}
-//               </div>
-//               <span
-//                 className={`font-mono text-[9px] tracking-widest uppercase transition-colors duration-200 ${
-//                   active ? "text-granite" : done ? "text-clay" : "text-fog"
-//                 }`}
-//               >
-//                 {step.label}
-//               </span>
-//             </div>
-//             {i < STEPS.length - 1 && (
-//               <div
-//                 className={`w-8 h-px transition-colors duration-300 ${done ? "bg-clay" : "bg-fog"}`}
-//               />
-//             )}
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
-
-// // ─── Selection card ───────────────────────────────────────────────────────────
-
-// function SelectionCard({
-//   label,
-//   sublabel,
-//   onClick,
-// }: {
-//   label: string;
-//   sublabel?: string;
-//   onClick: () => void;
-// }) {
-//   return (
-//     <button
-//       onClick={onClick}
-//       className="
-//         w-full text-left px-5 py-4 rounded-xl
-//         border border-fog bg-white/40
-//         hover:border-stone hover:bg-sand/40
-//         active:bg-sand
-//         transition-all duration-150
-//         group
-//       "
-//     >
-//       <div className="flex items-center justify-between">
-//         <div>
-//           <div className="font-mono text-sm text-granite font-medium group-hover:text-granite">
-//             {label}
-//           </div>
-//           {sublabel && (
-//             <div className="font-mono text-xs text-stone mt-0.5">
-//               {sublabel}
-//             </div>
-//           )}
-//         </div>
-//         <svg
-//           width="14"
-//           height="14"
-//           viewBox="0 0 24 24"
-//           fill="none"
-//           stroke="currentColor"
-//           strokeWidth="1.5"
-//           className="text-fog group-hover:text-stone transition-colors shrink-0"
-//         >
-//           <path d="M9 18l6-6-6-6" />
-//         </svg>
-//       </div>
-//     </button>
-//   );
-// }
-
-// // ─── Skeleton loader ──────────────────────────────────────────────────────────
-
-// function SkeletonList() {
-//   return (
-//     <div className="flex flex-col gap-2">
-//       {[...Array(4)].map((_, i) => (
-//         <div
-//           key={i}
-//           className="w-full h-[58px] rounded-xl bg-fog/50 animate-pulse"
-//           style={{ animationDelay: `${i * 60}ms` }}
-//         />
-//       ))}
-//     </div>
-//   );
-// }
-
-// // ─── Back button ─────────────────────────────────────────────────────────────
-
-// function BackButton({ onClick }: { onClick: () => void }) {
-//   return (
-//     <button
-//       onClick={onClick}
-//       className="flex items-center gap-1.5 font-mono text-xs tracking-widest uppercase text-stone hover:text-granite transition-colors mb-6"
-//     >
-//       <svg
-//         width="12"
-//         height="12"
-//         viewBox="0 0 24 24"
-//         fill="none"
-//         stroke="currentColor"
-//         strokeWidth="1.5"
-//       >
-//         <path d="M15 18l-6-6 6-6" />
-//       </svg>
-//       Back
-//     </button>
-//   );
-// }
-
-// // ─── Empty state ──────────────────────────────────────────────────────────────
-
-// function EmptyState({ message }: { message: string }) {
-//   return (
-//     <div className="py-10 text-center">
-//       <p className="font-mono text-xs text-stone">{message}</p>
-//     </div>
-//   );
-// }
+// import { Gym, Route, Step, Wall } from "../types/types";
+// import StepIndicator from "./StepIndicator";
+// import SelectionCard from "./SelectionCard";
+// import SkeletonList from "./SkeletonList";
+// import BackButton from "./BackButton";
+// import EmptyState from "./EmptyState";
 
 // // ─── Main component ───────────────────────────────────────────────────────────
 
@@ -216,7 +35,7 @@
 //       setError(null);
 //       const { data, error } = await supabase
 //         .from("gyms")
-//         .select("id, name, city, province, slug")
+//         .select("*")
 //         .order("name");
 //       if (error) setError("Failed to load gyms.");
 //       else setGyms(data ?? []);
@@ -233,7 +52,7 @@
 //       setError(null);
 //       const { data, error } = await supabase
 //         .from("walls")
-//         .select("id, name")
+//         .select("*")
 //         .eq("gym_id", selectedGym.id)
 //         .order("name");
 //       if (error) setError("Failed to load walls.");
@@ -251,7 +70,7 @@
 //       setError(null);
 //       const { data, error } = await supabase
 //         .from("routes")
-//         .select("id, name, grade")
+//         .select("*")
 //         .eq("wall_id", selectedWall.id)
 //         .order("grade");
 //       if (error) setError("Failed to load routes.");
@@ -414,6 +233,7 @@ import SelectionCard from "./SelectionCard";
 import SkeletonList from "./SkeletonList";
 import BackButton from "./BackButton";
 import EmptyState from "./EmptyState";
+import { gradeToNumber } from "@/lib/utils";
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
@@ -432,6 +252,11 @@ export default function ChooseClimbAndUpload() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [gymSearch, setGymSearch] = useState("");
+  const filteredGyms = gyms.filter((gym) =>
+    gym.name.toLowerCase().includes(gymSearch.toLowerCase()),
+  );
 
   // Fetch gyms on mount
   useEffect(() => {
@@ -476,10 +301,21 @@ export default function ChooseClimbAndUpload() {
       const { data, error } = await supabase
         .from("routes")
         .select("*")
-        .eq("wall_id", selectedWall.id)
-        .order("grade");
+        .eq("wall_id", selectedWall.id);
       if (error) setError("Failed to load routes.");
-      else setRoutes(data ?? []);
+      else
+        // setRoutes(
+        //   (data ?? []).sort((a, b) => {
+        //     const aNum = parseInt(a.grade.replace(/^[vV]/, ""), 10);
+        //     const bNum = parseInt(b.grade.replace(/^[vV]/, ""), 10);
+        //     return aNum - bNum;
+        //   }),
+        // );
+        setRoutes(
+          (data ?? []).sort(
+            (a, b) => gradeToNumber(a.grade) - gradeToNumber(b.grade),
+          ),
+        );
       setLoading(false);
     };
     fetchRoutes();
@@ -506,9 +342,19 @@ export default function ChooseClimbAndUpload() {
     );
   };
 
+  // const handleBack = () => {
+  //   if (step === "wall") {
+  //     setSelectedGym(null);
+  //     setStep("gym");
+  //   } else if (step === "route") {
+  //     setSelectedWall(null);
+  //     setStep("wall");
+  //   }
+  // };
   const handleBack = () => {
     if (step === "wall") {
       setSelectedGym(null);
+      setGymSearch(""); // reset search
       setStep("gym");
     } else if (step === "route") {
       setSelectedWall(null);
@@ -542,19 +388,48 @@ export default function ChooseClimbAndUpload() {
     if (error)
       return <p className="font-mono text-xs text-red-400 py-4">{error}</p>;
 
+    // if (step === "gym") {
+    //   if (!gyms.length)
+    //     return <EmptyState message="No gyms found. Check back soon." />;
+    //   return (
+    //     <div className="flex flex-col gap-2">
+    //       {gyms.map((gym) => (
+    //         <SelectionCard
+    //           key={gym.id}
+    //           label={gym.name}
+    //           sublabel={`${gym.city}, ${gym.province}`}
+    //           onClick={() => handleSelectGym(gym)}
+    //         />
+    //       ))}
+    //     </div>
+    //   );
+    // }
     if (step === "gym") {
       if (!gyms.length)
         return <EmptyState message="No gyms found. Check back soon." />;
       return (
-        <div className="flex flex-col gap-2">
-          {gyms.map((gym) => (
-            <SelectionCard
-              key={gym.id}
-              label={gym.name}
-              sublabel={`${gym.city}, ${gym.province}`}
-              onClick={() => handleSelectGym(gym)}
-            />
-          ))}
+        <div className="flex flex-col gap-3">
+          <input
+            type="text"
+            value={gymSearch}
+            onChange={(e) => setGymSearch(e.target.value)}
+            placeholder="Search gyms..."
+            className="w-full px-4 py-2 font-mono text-sm border border-stone/30 rounded-md bg-white text-granite placeholder:text-stone/50 focus:outline-none focus:ring-1 focus:ring-granite"
+          />
+          {filteredGyms.length === 0 ? (
+            <EmptyState message="No gyms match your search." />
+          ) : (
+            <div className="flex flex-col gap-2">
+              {filteredGyms.map((gym) => (
+                <SelectionCard
+                  key={gym.id}
+                  label={gym.name}
+                  sublabel={`${gym.city}, ${gym.province}`}
+                  onClick={() => handleSelectGym(gym)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       );
     }

@@ -18,6 +18,7 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center">
       <Hero />
+      {/* Add this ticker once there is more gyms in the system */}
       <Suspense
         fallback={
           <div className="w-full bg-clay py-2 overflow-hidden text-fog text-center">

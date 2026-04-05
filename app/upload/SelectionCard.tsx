@@ -1,5 +1,3 @@
-// ─── Selection card ───────────────────────────────────────────────────────────
-
 export default function SelectionCard({
   label,
   sublabel,

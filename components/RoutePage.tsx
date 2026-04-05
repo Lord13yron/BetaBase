@@ -52,11 +52,6 @@ export default function RoutePage({
 
         {/* Grid */}
         {videos.length > 0 ? (
-          // <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          //   {videos.map((v) => (
-          //     <VideoCard key={v.id} video={v} />
-          //   ))}
-          // </div>
           <VideoGrid videos={videos} isProfile={false} />
         ) : (
           <div className="flex flex-col items-center gap-5 py-16 text-stone text-[13px] tracking-wide">

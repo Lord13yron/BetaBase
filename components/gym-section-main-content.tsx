@@ -48,6 +48,9 @@ export default function GymSectionMainContent({
                 <div className="font-serif text-granite text-sm leading-tight">
                   {gym.name}
                 </div>
+                <div className="font-serif text-stone/70 text-sm leading-tight">
+                  {gym.city}, {gym.province}
+                </div>
                 <div className="font-mono text-[9px] tracking-widest uppercase text-clay mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   View routes →
                 </div>

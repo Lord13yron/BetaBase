@@ -13,13 +13,14 @@ import {
 } from "./ui/drawer";
 import { Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { AdminNavlink } from "./AdminNavlink";
 
 export default function Navbar() {
   const router = useRouter();
 
   return (
     <nav className="sticky top-0 left-0 right-0 z-50 bg-chalk/80 backdrop-blur-md border-b border-fog/60">
-      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div className=" mx-auto px-6 lg:px-20 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <BetaBaseIcon size={28} />
           <span className="font-serif text-xl text-granite">
@@ -37,6 +38,7 @@ export default function Navbar() {
               {item}
             </a>
           ))}
+          <AdminNavlink />
         </div>
         <div className="items-center gap-3 hidden md:flex">
           <Suspense>
@@ -53,13 +55,13 @@ export default function Navbar() {
               <DrawerHeader className="bg-sand">
                 <div className="flex justify-between items-center">
                   <DrawerTitle className="text-granite tracking-widest uppercase font-bold">
-                    Menu
+                    <DrawerClose className="w-full">
+                      <div className="flex justify-center w-full hover:cursor-pointer text-[14px]">
+                        <AuthButton isDrawer={true} />
+                      </div>
+                    </DrawerClose>
                   </DrawerTitle>
-                  <DrawerClose className="w-full">
-                    <div className="flex justify-center w-full hover:cursor-pointer text-[14px]">
-                      <AuthButton isDrawer={true} />
-                    </div>
-                  </DrawerClose>
+
                   <DrawerClose className="ml-auto">
                     <X className="hover:cursor-pointer hover:bg-chalk rounded-full p-1 transition-colors" />
                   </DrawerClose>
@@ -79,6 +81,11 @@ export default function Navbar() {
                     </DrawerClose>
                   ),
                 )}
+                <DrawerClose>
+                  <div className="text-start px-4 py-2 hover:cursor-pointer text-[14px] tracking-widest uppercase text-stone hover:text-granite transition-colors">
+                    <AdminNavlink />
+                  </div>
+                </DrawerClose>
               </nav>
             </DrawerContent>
           </Drawer>

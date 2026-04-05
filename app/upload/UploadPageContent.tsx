@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import ChooseClimbAndUpload from "@/app/upload/ChooseClimbAndUpload";
@@ -97,6 +95,8 @@ export default function UploadPage() {
       setStatus("processing");
 
       setTimeout(() => {
+        setStatus("idle");
+        setFile(null);
         router.push(`/gyms/${gymId}/${routeId}`);
       }, 2000);
     } catch (err) {

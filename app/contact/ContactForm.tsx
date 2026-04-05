@@ -1,26 +1,47 @@
 // app/contact/ContactForm.tsx
 "use client";
+
 import { useState } from "react";
+import { submitContactForm } from "./actions";
+import { toast } from "sonner";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   setStatus("loading");
+  //   const form = e.currentTarget;
+  //   const data = Object.fromEntries(new FormData(form));
+
+  //   const res = await fetch("/api/contact", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   });
+
+  //   setStatus(res.ok ? "success" : "error");
+  //   if (res.ok) form.reset();
+  // }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("loading");
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
 
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    const result = await submitContactForm(new FormData(form));
 
-    setStatus(res.ok ? "success" : "error");
-    if (res.ok) form.reset();
+    if (result.ok) {
+      setStatus("success");
+      form.reset();
+      toast.success("Message sent — we’ll be in touch soon.");
+      setTimeout(() => setStatus("idle"), 4000);
+    } else {
+      setStatus("error");
+      toast.error("Something went wrong. Try emailing us directly.");
+    }
   }
 
   return (
@@ -54,10 +75,10 @@ export default function ContactForm() {
             className="w-full bg-white border border-fog rounded-md px-3.5 py-2.5 text-sm text-granite font-mono outline-none focus:border-clay transition-colors appearance-none"
           >
             <option value="">Select one</option>
-            <option>Climber with feedback</option>
-            <option>Gym owner / manager</option>
-            <option>Potential partner</option>
-            <option>Just curious</option>
+            <option value="climber">Climber with feedback</option>
+            <option value="gym_owner">Gym owner / manager</option>
+            <option value="partner">Potential partner</option>
+            <option value="other">Other</option>
           </select>
         </div>
 

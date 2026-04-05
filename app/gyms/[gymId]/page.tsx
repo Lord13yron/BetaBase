@@ -1,22 +1,23 @@
 // import {
 //   getGymById,
+//   getIsGymAdmin,
 //   getRoutesByGymId,
 //   getWallsByGymId,
 // } from "@/lib/data-services";
 // import GymPage from "./GymPage";
-// import { Suspense } from "react";
-// import GymPageSkeleton from "@/components/GymPageSkeleton";
 
-// async function GymPageContent({
+// export default async function Page({
 //   params,
 // }: {
 //   params: Promise<{ gymId: string }>;
 // }) {
 //   const { gymId } = await params;
-//   const id = gymId.split("-").slice(-1)[0]; // Extract gymId from slug
-//   const gym = await getGymById(id);
-//   const routes = await getRoutesByGymId(id);
-//   const walls = await getWallsByGymId(id);
+//   const id = gymId.split("-").slice(-1)[0];
+
+//   const gym = await getGymById(Number(id));
+//   const routes = await getRoutesByGymId(Number(id));
+//   const walls = await getWallsByGymId(Number(id));
+//   const isAdmin = await getIsGymAdmin(id);
 
 //   if (!gym) {
 //     return (
@@ -25,25 +26,7 @@
 //       </div>
 //     );
 //   }
-//   return (
-//     <div>
-//       <GymPage GYM={gym} ROUTES={routes} WALLS={walls} />
-//     </div>
-//   );
-// }
-
-// export default async function Page({
-//   params,
-// }: {
-//   params: Promise<{ gymId: string }>;
-// }) {
-//   return (
-//     <div>
-//       <Suspense fallback={<GymPageSkeleton />}>
-//         <GymPageContent params={params} />
-//       </Suspense>
-//     </div>
-//   );
+//   return <GymPage GYM={gym} ROUTES={routes} WALLS={walls} isAdmin={isAdmin} />;
 // }
 
 import {
@@ -61,9 +44,11 @@ export default async function Page({
   const { gymId } = await params;
   const id = gymId.split("-").slice(-1)[0];
 
-  const gym = await getGymById(id);
-  const routes = await getRoutesByGymId(id);
-  const walls = await getWallsByGymId(id);
+  const [gym, routes, walls] = await Promise.all([
+    getGymById(Number(id)),
+    getRoutesByGymId(Number(id)),
+    getWallsByGymId(Number(id)),
+  ]);
 
   if (!gym) {
     return (
@@ -72,5 +57,6 @@ export default async function Page({
       </div>
     );
   }
+
   return <GymPage GYM={gym} ROUTES={routes} WALLS={walls} />;
 }

@@ -1,18 +1,6 @@
 import { Gym, Route } from "@/app/types/types";
 import Link from "next/link";
 
-const HOLD_COLOR_HEX: Record<string, string> = {
-  yellow: "#E8B84B",
-  blue: "#4B8FE8",
-  red: "#E84B4B",
-  green: "#4BE87A",
-  black: "#1A1A1A",
-  orange: "#E87A4B",
-  purple: "#8B4BE8",
-  pink: "#E84BA8",
-  white: "#EFEFEF",
-};
-
 function IconPlay() {
   return (
     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
@@ -27,8 +15,6 @@ type GymRouteCardProps = {
 };
 
 export default function GymRouteCard({ route, gym }: GymRouteCardProps) {
-  const dotColor = HOLD_COLOR_HEX[route.color] ?? "#8C7B6B";
-
   return (
     <Link href={`/gyms/${gym.slug}-${gym.id}/${route.id}`}>
       <div className="bg-white border border-fog rounded-xl cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg">
@@ -40,7 +26,7 @@ export default function GymRouteCard({ route, gym }: GymRouteCardProps) {
             </span>
             <span
               className="w-2.5 h-2.5 rounded-full border border-black/10 flex-shrink-0"
-              style={{ backgroundColor: dotColor }}
+              style={{ backgroundColor: route.color }}
               title={route.color}
             />
           </div>

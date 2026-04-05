@@ -65,7 +65,7 @@ export function Hero() {
   const heroFade = useFadeIn();
 
   return (
-    <section className="w-full relative min-h-screen flex  bg-[#3A3330] overflow-hidden ">
+    <section className="w-full relative flex  bg-[#3A3330] overflow-hidden ">
       {/* Radial glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#C17A5A]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -116,21 +116,21 @@ export function Hero() {
 
           <div className="mt-10 flex items-center gap-6">
             <div>
-              <div className="font-serif text-[#F5EFE6] text-2xl">12k+</div>
+              <div className="font-serif text-[#F5EFE6] text-2xl">100+</div>
               <div className="font-mono text-[9px] tracking-widest uppercase text-[#8C7B6B] mt-0.5">
                 Beta videos
               </div>
             </div>
             <div className="w-px h-8 bg-[#8C7B6B]/30" />
             <div>
-              <div className="font-serif text-[#F5EFE6] text-2xl">340+</div>
+              <div className="font-serif text-[#F5EFE6] text-2xl">2</div>
               <div className="font-mono text-[9px] tracking-widest uppercase text-[#8C7B6B] mt-0.5">
                 Gyms listed
               </div>
             </div>
             <div className="w-px h-8 bg-[#8C7B6B]/30" />
             <div>
-              <div className="font-serif text-[#F5EFE6] text-2xl">8k+</div>
+              <div className="font-serif text-[#F5EFE6] text-2xl">100+</div>
               <div className="font-mono text-[9px] tracking-widest uppercase text-[#8C7B6B] mt-0.5">
                 Climbers
               </div>
@@ -247,151 +247,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-        <span className="text-[9px] tracking-widest uppercase text-[#8C7B6B]">
-          Scroll
-        </span>
-        <div className="w-px h-8 bg-gradient-to-b from-[#8C7B6B] to-transparent" />
-      </div>
     </section>
   );
 }
-
-//  <div className="min-h-screen bg-chalk text-granite font-mono">
-//               {/* ── Hero ── */}
-//               <div className="bg-granite relative overflow-hidden">
-//                 <div
-//                   className="absolute inset-0 pointer-events-none"
-//                   style={{
-//                     background:
-//                       "radial-gradient(ellipse 70% 100% at 0% 100%, rgba(193,122,90,0.1) 0%, transparent 60%)",
-//                   }}
-//                 />
-//                 <div className="relative max-w-5xl mx-auto px-8 pt-12 pb-10 flex flex-wrap justify-between items-end gap-8">
-//                   {/* Left */}
-//                   <div>
-//                     <div className="flex items-center gap-2 text-[9px] tracking-[0.2em] uppercase text-stone mb-4">
-//                       <Link
-//                         href="/gyms"
-//                         className="hover:text-clay transition-colors"
-//                       >
-//                         <span>Gyms</span>
-//                       </Link>
-//                       {/* <IconChevron /> */}
-//                       <span className="text-clay">Gneiss - OG</span>
-//                     </div>
-//                     <h1 className="font-serif text-chalk text-5xl tracking-tight leading-none mb-3">
-//                       Gneiss - OG
-//                     </h1>
-//                     <div className="flex items-center gap-1.5 text-[11px] tracking-[0.14em] uppercase text-stone">
-//                       {/* <IconPin /> */}
-//                       Kelowna, BC
-//                     </div>
-//                   </div>
-
-//                   {/* Stats */}
-//                   <div className="flex items-stretch gap-8 flex-shrink-0">
-//                     <div className="flex flex-col items-end gap-1">
-//                       <span className="font-serif text-chalk text-4xl leading-none">
-//                         90
-//                       </span>
-//                       <span className="text-[9px] tracking-[0.2em] uppercase text-stone">
-//                         Routes
-//                       </span>
-//                     </div>
-//                     <div className="w-px bg-white/10" />
-//                     <div className="flex flex-col items-end gap-1">
-//                       <span className="font-serif text-chalk text-4xl leading-none">
-//                         64
-//                       </span>
-//                       <span className="text-[9px] tracking-[0.2em] uppercase text-stone">
-//                         Videos
-//                       </span>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-
-//               {/* ── Content ── */}
-//               <div className="max-w-5xl mx-auto px-8">
-//                 {/* Toolbar */}
-//                 <div className="pt-7">
-//                   <div className="flex flex-wrap items-center gap-3">
-//                     {/* Search */}
-//                     <div className="relative flex-1 min-w-[180px] max-w-xs">
-//                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone pointer-events-none">
-//                         {/* <IconSearch /> */}
-//                       </span>
-//                       <input
-//                         type="text"
-//                         placeholder="Search routes..."
-//                         className="w-full bg-white border border-fog rounded-lg pl-8 pr-3 py-2 text-[11px] tracking-[0.06em] text-granite placeholder:text-stone outline-none focus:border-clay transition-colors font-mono"
-//                       />
-//                     </div>
-
-//                     {/* Divider */}
-//                     <div className="w-px h-5 bg-fog" />
-
-//                     {/* Type filters */}
-//                     <div className="flex gap-1.5 flex-wrap"></div>
-
-//                     {/* Results count */}
-//                     <span className="ml-auto text-[9px] tracking-[0.18em] uppercase text-stone whitespace-nowrap">
-//                       90 routes
-//                     </span>
-//                   </div>
-//                 </div>
-
-//                 {/* Grid */}
-//                 <div className="py-7">
-//                   <div className="grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-3">
-//                     {ROUTES.map((route) => (
-//                       <div
-//                         key={route.name}
-//                         className="bg-white border border-fog rounded-xl cursor-pointer transition-all duration-150 hover:-translate-y-0.5 hover:border-clay hover:shadow-lg"
-//                       >
-//                         <div className="p-[18px]">
-//                           {/* Grade + hold color dot */}
-//                           <div className="flex items-center justify-between mb-2.5">
-//                             <span className="text-clay text-[15px] font-medium tracking-tight font-mono">
-//                               {route.grade}
-//                             </span>
-//                             <span
-//                               className="w-2.5 h-2.5 rounded-full border border-black/10 flex-shrink-0"
-//                               title={route.color}
-//                             />
-//                           </div>
-
-//                           {/* Name */}
-//                           <div className="font-serif text-granite text-[16px] leading-snug mb-1.5">
-//                             {route.name}
-//                           </div>
-
-//                           {/* Wall tag */}
-//                           <div className="mb-3.5">
-//                             <span className="text-[8px] tracking-[0.2em] uppercase text-stone bg-chalk rounded px-1.5 py-0.5">
-//                               {route.gym}
-//                             </span>
-//                           </div>
-
-//                           {/* Footer */}
-//                           <div className="flex items-center justify-between pt-3 border-t border-chalk">
-//                             <div className="flex items-center gap-1 text-clay bg-clay/10 text-[9px] tracking-[0.1em] px-2 py-1 rounded-full">
-//                               <IconPlay />
-//                               {route.videos} video
-//                               {route.videos !== 1 ? "s" : ""}
-//                             </div>
-//                             <span className="text-[9px] tracking-[0.08em] text-stone">
-//                               2024-05-12
-//                               {/* Display only the date part */}
-//                             </span>
-//                           </div>
-//                         </div>
-//                       </div>
-//                     ))}
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
