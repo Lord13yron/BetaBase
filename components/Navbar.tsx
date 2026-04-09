@@ -55,11 +55,9 @@ export default function Navbar() {
               <DrawerHeader className="bg-sand">
                 <div className="flex justify-between items-center">
                   <DrawerTitle className="text-granite tracking-widest uppercase font-bold">
-                    <DrawerClose className="w-full">
-                      <div className="flex justify-center w-full hover:cursor-pointer text-[14px]">
-                        <AuthButton isDrawer={true} />
-                      </div>
-                    </DrawerClose>
+                    <div className="hover:cursor-pointer text-[14px]">
+                      <AuthButton isDrawer={true} />
+                    </div>
                   </DrawerTitle>
 
                   <DrawerClose className="ml-auto">
@@ -81,7 +79,7 @@ export default function Navbar() {
                     </DrawerClose>
                   ),
                 )}
-                <DrawerClose>
+                <DrawerClose className="self-start">
                   <div className="text-start px-4 py-2 hover:cursor-pointer text-[14px] tracking-widest uppercase text-stone hover:text-granite transition-colors">
                     <AdminNavlink />
                   </div>

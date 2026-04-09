@@ -3,9 +3,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { verifySuper } from "@/lib/auth/verifySuper";
 
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { ClimbType } from "../types/types";
-import { revalidatePath } from "next/cache";
 
 // ─── Gyms ────────────────────────────────────────────────────────────────────
 

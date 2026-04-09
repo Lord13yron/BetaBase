@@ -30,11 +30,13 @@ export default function VideoCard({
   onSelect,
   isProfile,
   isPublic,
+  priority,
 }: {
   video: VideoWithDetails;
   onSelect: (v: VideoWithDetails) => void;
   isProfile: boolean;
   isPublic?: boolean;
+  priority?: boolean;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [video, setVideo] = useState(initialVideo);
@@ -105,7 +107,9 @@ export default function VideoCard({
                 src={`https://image.mux.com/${video.mux_playback_id}/thumbnail.jpg?time=3`}
                 alt={video.mux_asset_id}
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover"
+                priority={priority}
               />
               <div className="absolute inset-0 flex items-center justify-center bg-granite/0 group-hover:bg-granite/40 transition-colors duration-200">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center w-12 h-12 rounded-full bg-clay/90">

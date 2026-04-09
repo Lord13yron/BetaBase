@@ -16,7 +16,6 @@ export type Route = {
 export type ClimbType = "Bouldering" | "Lead" | "Top Rope";
 
 export interface Gym {
-  // id: string;
   id: number;
   name: string;
   city: string;
@@ -31,7 +30,7 @@ export interface Gym {
 export interface Wall {
   id: number;
   name: string;
-  gym_id: string;
+  gym_id: number;
   description: string;
 }
 
@@ -67,7 +66,7 @@ export interface UserProfile {
   email: string;
   home_gym?: string;
   created_at: string;
-  height?: number;
+  height?: string;
   is_superuser: boolean;
 }
 

@@ -33,13 +33,14 @@ export default function VideoGrid({
 
       {/* Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {videos.map((v) => (
+        {videos.map((v, i) => (
           <VideoCard
             key={v.id}
             video={v}
             onSelect={handleSelect}
             isProfile={isProfile}
             isPublic={isPublic}
+            priority={i === 0}
           />
         ))}
       </div>

@@ -60,7 +60,7 @@ export default function UploadPage() {
   }, []);
 
   const handleUpload = async () => {
-    if (!file || !routeId) return;
+    if (!file || !routeId || !gymId) return;
 
     setStatus("uploading");
     setProgress(0);

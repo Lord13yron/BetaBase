@@ -77,32 +77,48 @@ export default function OnboardingPage() {
   const validation = classifyUsername(username);
   const canSubmit = status === "available" && !submitted;
 
+  const [error, setError] = useState<string | null>(null);
+
   async function handleSubmit() {
     if (!canSubmit) return;
     setSubmitted(true);
+    setError(null);
 
     const supabase = createClient();
-    // TODO: upsert profile row in Supabase
+
     const {
       data: { user },
+      error: authError,
     } = await supabase.auth.getUser();
 
-    // Convert ft/in to cm if needed
+    if (authError || !user) {
+      setError("Session expired. Please sign in again.");
+      setSubmitted(false);
+      return;
+    }
+
     const heightInCm =
       heightUnit === "cm"
-        ? parseInt(heightCm)
+        ? parseInt(heightCm) || null
         : Math.round(
-            parseInt(heightFt) * 30.48 + parseInt(heightIn || "0") * 2.54,
-          );
+            parseInt(heightFt || "0") * 30.48 +
+              parseInt(heightIn || "0") * 2.54,
+          ) || null;
 
-    await supabase
+    const { error: updateError } = await supabase
       .from("user_profiles")
       .update({
         username,
-        height: heightInCm || null,
+        height: heightInCm,
         home_gym: homeGym || null,
       })
-      .eq("id", user?.id);
+      .eq("id", user.id);
+
+    if (updateError) {
+      setError("Something went wrong. Please try again.");
+      setSubmitted(false);
+      return;
+    }
 
     router.push("/gyms");
   }
@@ -132,7 +148,6 @@ export default function OnboardingPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap');
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -484,10 +499,14 @@ export default function OnboardingPage() {
                   : "Choose a username to continue"}
               </button>
 
+              {error && (
+                <p className="font-mono text-[10px] text-red-400 text-center mt-3">
+                  {error}
+                </p>
+              )}
+
               <p className="font-mono text-[10px] text-[#8C7B6B]/50 text-center mt-4 leading-relaxed">
-                You can update your height anytime in settings.
-                <br />
-                Usernames are permanent.
+                You can update your profile anytime from the Profile page.
               </p>
             </div>
           </div>

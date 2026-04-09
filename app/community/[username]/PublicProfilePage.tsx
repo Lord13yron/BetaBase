@@ -82,7 +82,7 @@ export default function PublicProfilePage({
             <h3 className="font-mono text-[10px] uppercase tracking-widest pb-3 border-b-2 text-[#8C7B6B] ">
               Beta Videos
               <span className="mx-3 inline-flex items-center justify-center w-5 h-5 rounded-full bg-clay text-white text-[10px] tracking-normal">
-                {videos.length}
+                {readyVideos.length}
               </span>
             </h3>
             <VideoGrid videos={readyVideos} isProfile={true} isPublic={true} />
