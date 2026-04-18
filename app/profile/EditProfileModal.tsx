@@ -140,7 +140,7 @@
 //       full_name: fullName || undefined,
 //       username,
 //       home_gym: homeGym || undefined,
-//       height: heightInCm ?? undefined,
+//       height: heightInCm != null ? heightInCm.toString() : undefined,
 //     });
 //     onClose();
 //   }
@@ -591,7 +591,7 @@ export default function EditProfileModal({ profile, onClose, onSave }: Props) {
       full_name: fullName || undefined,
       username,
       home_gym: homeGym || undefined,
-      height: heightInCm ?? undefined,
+      height: heightInCm != null ? heightInCm.toString() : undefined,
       avatar_url: avatarUrl,
     });
     onClose();
