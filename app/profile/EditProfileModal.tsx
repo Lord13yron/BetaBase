@@ -476,7 +476,7 @@ export default function EditProfileModal({ profile, onClose, onSave }: Props) {
   // Convert existing height (cm) to ft/in on mount
   useEffect(() => {
     if (profile.height) {
-      const totalIn = profile.height / 2.54;
+      const totalIn = parseFloat(profile.height) / 2.54;
       setHeightFt(Math.floor(totalIn / 12).toString());
       setHeightIn(Math.round(totalIn % 12).toString());
     }
