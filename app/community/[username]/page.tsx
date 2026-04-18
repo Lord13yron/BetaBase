@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getProfileByUsername, getVideosByUser } from "@/lib/data-services";
 import PublicProfilePage from "./PublicProfilePage";
 
+export const dynamic = "force-dynamic";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
 function ProfileContentSkeleton() {

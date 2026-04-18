@@ -3,6 +3,8 @@ import { notFound, redirect } from "next/navigation";
 import WallsPanel from "./WallsPanel";
 import { Route, Wall } from "@/app/types/types";
 import { Suspense } from "react";
+
+export const dynamic = "force-dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import { gradeToNumber } from "@/lib/utils";
 import { verifyAdmin } from "./actions";

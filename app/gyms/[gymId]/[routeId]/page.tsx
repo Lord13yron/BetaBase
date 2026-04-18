@@ -46,6 +46,8 @@ import { getRouteById, getVideosByRouteId } from "@/lib/data-services";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 async function GymRoutePageContent({
   params,
 }: {
