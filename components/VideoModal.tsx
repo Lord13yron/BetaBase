@@ -72,9 +72,9 @@ export default function VideoModal({
           <p className="text-chalk font-mono text-sm tracking-wide">
             @{video.uploaded_by}{" "}
             {video.uploaded_by_height && (
-              <p className="text-[10px] text-stone">
+              <span className="text-[10px] text-stone">
                 Height : {video.uploaded_by_height} cm
-              </p>
+              </span>
             )}
           </p>
           <p className="text-stone font-mono text-[10px] tracking-widest mt-0.5">

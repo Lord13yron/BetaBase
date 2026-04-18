@@ -13,7 +13,6 @@ import { formatDate, getMemberDuration } from "@/lib/utils";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-// Helper to format height:
 function formatHeight(cm: number, unit: "cm" | "ft"): string {
   if (unit === "cm") return `${cm} cm`;
   const totalInches = cm / 2.54;
@@ -39,9 +38,9 @@ export default function UserProfilePage({
   const [heightUnit, setHeightUnit] = useState<"cm" | "ft">("ft");
 
   return (
-    <main className="min-h-screen bg-[#F5EFE6]">
+    <main className="min-h-screen bg-chalk">
       {/* ── Header band ── */}
-      <div className="bg-[#3A3330] px-6 pt-12 pb-0">
+      <div className="bg-granite px-6 pt-12 pb-0">
         <div className="max-w-4xl mx-auto">
           {/* Avatar + name row */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 pb-6">
@@ -50,15 +49,15 @@ export default function UserProfilePage({
 
               <div className="flex-1 min-w-0 pb-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="font-serif text-2xl text-[#F5EFE6] leading-none">
+                  <h1 className="font-serif text-2xl text-chalk leading-none">
                     {profile.full_name ? profile.full_name : profile.username}
                   </h1>
                 </div>
-                <p className="font-mono text-[11px] tracking-wider text-[#8C7B6B] mt-1">
+                <p className="font-mono text-[11px] tracking-wider text-stone mt-1">
                   @{profile.username}
                 </p>
                 {profile.home_gym && (
-                  <p className="font-mono text-[11px] text-[#C17A5A] mt-1.5 flex items-center gap-1.5">
+                  <p className="font-mono text-[11px] text-clay mt-1.5 flex items-center gap-1.5">
                     <svg
                       className="w-3 h-3 shrink-0"
                       fill="none"
@@ -124,8 +123,8 @@ export default function UserProfilePage({
                 onClick={() => setTab(t)}
                 className={`font-mono text-[10px] uppercase tracking-widest pb-3 border-b-2 transition-colors duration-200 ${
                   tab === t
-                    ? "border-[#C17A5A] text-[#F5EFE6]"
-                    : "border-transparent text-[#8C7B6B] hover:text-[#F5EFE6]"
+                    ? "border-clay text-chalk"
+                    : "border-transparent text-stone hover:text-chalk"
                 }`}
               >
                 {t === "videos"
@@ -144,9 +143,9 @@ export default function UserProfilePage({
           <>
             {videos.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-[#3A3330]/10 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-2xl bg-granite/10 flex items-center justify-center">
                   <svg
-                    className="w-7 h-7 text-[#8C7B6B]"
+                    className="w-7 h-7 text-stone"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -159,11 +158,11 @@ export default function UserProfilePage({
                     />
                   </svg>
                 </div>
-                <p className="font-mono text-[11px] uppercase tracking-widest text-[#8C7B6B]">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-stone">
                   No beta videos yet
                 </p>
                 <Link href="/upload">
-                  <button className="font-mono text-[10px] uppercase tracking-widest text-white bg-[#C17A5A] px-5 py-2.5 rounded-lg hover:bg-[#C17A5A]/90 transition-colors">
+                  <button className="font-mono text-[10px] uppercase tracking-widest text-white bg-clay px-5 py-2.5 rounded-lg hover:bg-clay/90 transition-colors">
                     Upload Beta
                   </button>
                 </Link>
@@ -186,24 +185,24 @@ export default function UserProfilePage({
             ].map(({ label, value }) => (
               <div
                 key={label}
-                className="flex items-center justify-between py-3.5 border-b border-[#3A3330]/10 last:border-0"
+                className="flex items-center justify-between py-3.5 border-b border-granite/10 last:border-0"
               >
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7B6B]">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-stone">
                   {label}
                 </span>
-                <span className="font-mono text-sm text-[#3A3330]">
+                <span className="font-mono text-sm text-granite">
                   {value}
                 </span>
               </div>
             ))}
-            <div className="flex items-center justify-between py-3.5 border-b border-[#3A3330]/10">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#8C7B6B]">
+            <div className="flex items-center justify-between py-3.5 border-b border-granite/10">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-stone">
                 Height
               </span>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-sm text-[#3A3330]">
+                <span className="font-mono text-sm text-granite">
                   {profile.height
-                    ? formatHeight(profile.height, heightUnit)
+                    ? formatHeight(Number(profile.height), heightUnit)
                     : "—"}
                 </span>
                 {profile.height && (
@@ -211,7 +210,7 @@ export default function UserProfilePage({
                     onClick={() =>
                       setHeightUnit((u) => (u === "cm" ? "ft" : "cm"))
                     }
-                    className="font-mono text-[9px] uppercase tracking-widest text-[#C17A5A] border border-[#C17A5A]/40 rounded px-1.5 py-0.5 hover:bg-[#C17A5A]/10 transition-colors"
+                    className="font-mono text-[9px] uppercase tracking-widest text-clay border border-clay/40 rounded px-1.5 py-0.5 hover:bg-clay/10 transition-colors"
                   >
                     {heightUnit === "cm" ? "ft" : "cm"}
                   </button>

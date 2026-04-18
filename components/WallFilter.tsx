@@ -1,13 +1,7 @@
 "use client";
 
+import { Wall } from "@/app/types/types";
 import { useState, useRef, useEffect } from "react";
-
-export interface Wall {
-  id: number;
-  name: string;
-  gym_id: string;
-  description: string;
-}
 
 interface WallFilterProps {
   walls: Wall[];

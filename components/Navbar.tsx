@@ -55,9 +55,11 @@ export default function Navbar() {
               <DrawerHeader className="bg-sand">
                 <div className="flex justify-between items-center">
                   <DrawerTitle className="text-granite tracking-widest uppercase font-bold">
-                    <div className="hover:cursor-pointer text-[14px]">
-                      <AuthButton isDrawer={true} />
-                    </div>
+                    <DrawerClose>
+                      <div className="hover:cursor-pointer text-[14px]">
+                        <AuthButton isDrawer={true} />
+                      </div>
+                    </DrawerClose>
                   </DrawerTitle>
 
                   <DrawerClose className="ml-auto">

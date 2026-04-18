@@ -1,4 +1,3 @@
-// app/contact/ContactForm.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,22 +8,6 @@ type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-
-  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   setStatus("loading");
-  //   const form = e.currentTarget;
-  //   const data = Object.fromEntries(new FormData(form));
-
-  //   const res = await fetch("/api/contact", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(data),
-  //   });
-
-  //   setStatus(res.ok ? "success" : "error");
-  //   if (res.ok) form.reset();
-  // }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

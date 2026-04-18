@@ -5,7 +5,7 @@ import { Spinner } from "@/components/ui/spinner";
 
 async function ProfileContent() {
   const profile = await getUserProfile();
-  const videos = await getVideosByUser(profile.username);
+  const videos = await getVideosByUser(profile.id);
   return <UserProfilePage profile={profile} videos={videos} />;
 }
 
@@ -23,17 +23,3 @@ export default function ProfilePage() {
     </Suspense>
   );
 }
-
-// import { getUserProfile, getVideosByUser } from "@/lib/data-services";
-
-// import UserProfilePage from "./UserProfilePage";
-
-// async function ProfileContent() {
-//   const profile = await getUserProfile();
-//   const videos = await getVideosByUser(profile.username);
-//   return <UserProfilePage profile={profile} videos={videos} />;
-// }
-
-// export default function ProfilePage() {
-//   return <ProfileContent />;
-// }

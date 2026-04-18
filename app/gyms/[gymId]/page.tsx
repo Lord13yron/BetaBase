@@ -18,10 +18,12 @@ export default async function Page({
   if (!id || isNaN(numericId)) notFound();
 
   const [gym, routes, walls] = await Promise.all([
-    getGymById(Number(id)),
-    getRoutesByGymId(Number(id)),
-    getWallsByGymId(Number(id)),
+    getGymById(numericId),
+    getRoutesByGymId(numericId),
+    getWallsByGymId(numericId),
   ]);
 
-  return <GymPage GYM={gym} ROUTES={routes} WALLS={walls} />;
+  if (!gym) notFound();
+
+  return <GymPage gym={gym} routes={routes} walls={walls} />;
 }

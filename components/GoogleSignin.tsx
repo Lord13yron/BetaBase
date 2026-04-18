@@ -13,7 +13,7 @@ export default function GoogleSignin() {
           access_type: "offline",
           prompt: "consent",
         },
-        redirectTo: `http://localhost:3000/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
     if (error) {

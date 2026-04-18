@@ -81,7 +81,7 @@ async function ProfileContent({
   const profile = await getProfileByUsername(username);
   if (!profile) notFound();
 
-  const videos = await getVideosByUser(username);
+  const videos = await getVideosByUser(profile.id);
   return <PublicProfilePage profile={profile} videos={videos} />;
 }
 

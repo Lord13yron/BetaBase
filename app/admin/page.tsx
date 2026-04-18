@@ -10,6 +10,11 @@ import SuperadminTabs from "./_components/SuperadminTabs";
 import AdminsPanel from "./_components/AdminsPanel";
 import MessagesPanel from "./_components/MessagesPanel";
 import GymsPanel from "./_components/GymsPanel";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function SuperadminPage() {
   return (
@@ -20,8 +25,8 @@ export default function SuperadminPage() {
 }
 
 async function AdminPageContent() {
-  await connection();
   await verifySuper();
+  await connection();
 
   const [gyms, admins, submissions] = await Promise.all([
     getSuperadminGyms(),

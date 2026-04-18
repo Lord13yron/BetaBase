@@ -2,8 +2,13 @@ import Link from "next/link";
 
 export const metadata = {
   title: "About — BetaBase",
-  description:
-    "BetaBase is a community-built video platform for climbers. Watch beta for any route at any gym, or upload your own.",
+  description: "...",
+  openGraph: {
+    title: "About — BetaBase",
+    description: "...",
+    url: `${process.env.NEXT_PUBLIC_APP_URL}/about`,
+    siteName: "BetaBase",
+  },
 };
 
 const steps = [
@@ -21,6 +26,21 @@ const steps = [
     number: "03",
     heading: "Upload your own",
     body: "Figured out the crux? Film it and post it. Your beta helps the next climber make the send.",
+  },
+];
+
+const values = [
+  {
+    label: "Open by default",
+    body: "Browse any gym and watch any video without an account. Sign up only when you're ready to contribute.",
+  },
+  {
+    label: "Community-sourced",
+    body: "Every video comes from a climber who wanted to help. Real people, real beta.",
+  },
+  {
+    label: "Route-level precision",
+    body: "Beta is filed to the specific route, not dumped in a wall-wide feed. Find what you need fast.",
   },
 ];
 
@@ -116,20 +136,7 @@ export default function AboutPage() {
       {/* ── Values strip ─────────────────────────────────── */}
       <section className="border-y border-fog px-6 py-16 md:px-20">
         <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
-          {[
-            {
-              label: "Open by default",
-              body: "Browse any gym and watch any video without an account. Sign up only when you're ready to contribute.",
-            },
-            {
-              label: "Community-sourced",
-              body: "Every video comes from a climber who wanted to help. Real people, real beta.",
-            },
-            {
-              label: "Route-level precision",
-              body: "Beta is filed to the specific route, not dumped in a wall-wide feed. Find what you need fast.",
-            },
-          ].map((v) => (
+          {values.map((v) => (
             <div key={v.label}>
               <div className="mb-3 h-px w-8 bg-clay" />
               <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-granite">

@@ -9,6 +9,7 @@
 // import SkeletonList from "./SkeletonList";
 // import BackButton from "./BackButton";
 // import EmptyState from "./EmptyState";
+// import { gradeToNumber } from "@/lib/utils";
 
 // // ─── Main component ───────────────────────────────────────────────────────────
 
@@ -27,6 +28,11 @@
 
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState<string | null>(null);
+
+//   const [gymSearch, setGymSearch] = useState("");
+//   const filteredGyms = gyms.filter((gym) =>
+//     gym.name.toLowerCase().includes(gymSearch.toLowerCase()),
+//   );
 
 //   // Fetch gyms on mount
 //   useEffect(() => {
@@ -71,10 +77,14 @@
 //       const { data, error } = await supabase
 //         .from("routes")
 //         .select("*")
-//         .eq("wall_id", selectedWall.id)
-//         .order("grade");
+//         .eq("wall_id", selectedWall.id);
 //       if (error) setError("Failed to load routes.");
-//       else setRoutes(data ?? []);
+//       else
+//         setRoutes(
+//           (data ?? []).sort(
+//             (a, b) => gradeToNumber(a.grade) - gradeToNumber(b.grade),
+//           ),
+//         );
 //       setLoading(false);
 //     };
 //     fetchRoutes();
@@ -104,6 +114,7 @@
 //   const handleBack = () => {
 //     if (step === "wall") {
 //       setSelectedGym(null);
+//       setGymSearch(""); // reset search
 //       setStep("gym");
 //     } else if (step === "route") {
 //       setSelectedWall(null);
@@ -141,15 +152,28 @@
 //       if (!gyms.length)
 //         return <EmptyState message="No gyms found. Check back soon." />;
 //       return (
-//         <div className="flex flex-col gap-2">
-//           {gyms.map((gym) => (
-//             <SelectionCard
-//               key={gym.id}
-//               label={gym.name}
-//               sublabel={`${gym.city}, ${gym.province}`}
-//               onClick={() => handleSelectGym(gym)}
-//             />
-//           ))}
+//         <div className="flex flex-col gap-3">
+//           <input
+//             type="text"
+//             value={gymSearch}
+//             onChange={(e) => setGymSearch(e.target.value)}
+//             placeholder="Search gyms..."
+//             className="w-full px-4 py-2 font-mono text-sm border border-stone/30 rounded-md bg-white text-granite placeholder:text-stone/50 focus:outline-none focus:ring-1 focus:ring-granite"
+//           />
+//           {filteredGyms.length === 0 ? (
+//             <EmptyState message="No gyms match your search." />
+//           ) : (
+//             <div className="flex flex-col gap-2">
+//               {filteredGyms.map((gym) => (
+//                 <SelectionCard
+//                   key={gym.id}
+//                   label={gym.name}
+//                   sublabel={`${gym.city}, ${gym.province}`}
+//                   onClick={() => handleSelectGym(gym)}
+//                 />
+//               ))}
+//             </div>
+//           )}
 //         </div>
 //       );
 //     }
@@ -224,7 +248,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Gym, Route, Step, Wall } from "../types/types";
@@ -239,7 +263,8 @@ import { gradeToNumber } from "@/lib/utils";
 
 export default function ChooseClimbAndUpload() {
   const router = useRouter();
-  const supabase = createClient();
+  // const supabase = createClient();
+  const supabase = useRef(createClient()).current;
 
   const [step, setStep] = useState<Step>("gym");
 
@@ -272,7 +297,7 @@ export default function ChooseClimbAndUpload() {
       setLoading(false);
     };
     fetchGyms();
-  }, [supabase]);
+  }, []);
 
   // Fetch walls when gym is selected
   useEffect(() => {
@@ -290,7 +315,7 @@ export default function ChooseClimbAndUpload() {
       setLoading(false);
     };
     fetchWalls();
-  }, [selectedGym, supabase]);
+  }, [selectedGym]);
 
   // Fetch routes when wall is selected
   useEffect(() => {
@@ -304,13 +329,6 @@ export default function ChooseClimbAndUpload() {
         .eq("wall_id", selectedWall.id);
       if (error) setError("Failed to load routes.");
       else
-        // setRoutes(
-        //   (data ?? []).sort((a, b) => {
-        //     const aNum = parseInt(a.grade.replace(/^[vV]/, ""), 10);
-        //     const bNum = parseInt(b.grade.replace(/^[vV]/, ""), 10);
-        //     return aNum - bNum;
-        //   }),
-        // );
         setRoutes(
           (data ?? []).sort(
             (a, b) => gradeToNumber(a.grade) - gradeToNumber(b.grade),
@@ -319,7 +337,7 @@ export default function ChooseClimbAndUpload() {
       setLoading(false);
     };
     fetchRoutes();
-  }, [selectedWall, supabase]);
+  }, [selectedWall]);
 
   const handleSelectGym = (gym: Gym) => {
     setSelectedGym(gym);
@@ -342,15 +360,6 @@ export default function ChooseClimbAndUpload() {
     );
   };
 
-  // const handleBack = () => {
-  //   if (step === "wall") {
-  //     setSelectedGym(null);
-  //     setStep("gym");
-  //   } else if (step === "route") {
-  //     setSelectedWall(null);
-  //     setStep("wall");
-  //   }
-  // };
   const handleBack = () => {
     if (step === "wall") {
       setSelectedGym(null);
@@ -388,22 +397,6 @@ export default function ChooseClimbAndUpload() {
     if (error)
       return <p className="font-mono text-xs text-red-400 py-4">{error}</p>;
 
-    // if (step === "gym") {
-    //   if (!gyms.length)
-    //     return <EmptyState message="No gyms found. Check back soon." />;
-    //   return (
-    //     <div className="flex flex-col gap-2">
-    //       {gyms.map((gym) => (
-    //         <SelectionCard
-    //           key={gym.id}
-    //           label={gym.name}
-    //           sublabel={`${gym.city}, ${gym.province}`}
-    //           onClick={() => handleSelectGym(gym)}
-    //         />
-    //       ))}
-    //     </div>
-    //   );
-    // }
     if (step === "gym") {
       if (!gyms.length)
         return <EmptyState message="No gyms found. Check back soon." />;

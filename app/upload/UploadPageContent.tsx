@@ -91,14 +91,10 @@ export default function UploadPage() {
         xhr.setRequestHeader("Content-Type", file.type);
         xhr.send(file);
       });
-
-      setStatus("processing");
-
-      setTimeout(() => {
-        setStatus("idle");
-        setFile(null);
-        router.push(`/gyms/${gymId}/${routeId}`);
-      }, 2000);
+      setFile(null);
+      setProgress(0);
+      setStatus("idle");
+      router.push(`/gyms/${gymId}/${routeId}`);
     } catch (err) {
       console.error(err);
       setStatus("error");
