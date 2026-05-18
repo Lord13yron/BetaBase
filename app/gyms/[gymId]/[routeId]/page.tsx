@@ -40,6 +40,7 @@
 //   );
 // }
 
+import type { Metadata } from "next";
 import RoutePage from "@/components/RoutePage";
 import RoutePageSkeleton from "@/components/RoutePageSkeleton";
 import { getRouteById, getVideosByRouteId } from "@/lib/data-services";
@@ -47,6 +48,32 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ gymId: string; routeId: string }>;
+}): Promise<Metadata> {
+  const { routeId } = await params;
+  const numericId = Number(routeId);
+  if (!routeId || isNaN(numericId)) return {};
+
+  const route = await getRouteById(numericId);
+  if (!route) return {};
+
+  const title = route.name
+    ? `${route.name} — ${route.grade} at ${route.gym_name}`
+    : `${route.grade} on ${route.wall_name} at ${route.gym_name}`;
+
+  return {
+    title: route.name || `${route.grade} — ${route.wall_name}`,
+    description: `Watch beta videos for ${title}. ${route.video_count} community clip${route.video_count !== 1 ? "s" : ""} on BetaBase.`,
+    openGraph: {
+      title: `${title} | BetaBase`,
+      description: `Watch beta videos for ${title} on BetaBase.`,
+    },
+  };
+}
 
 async function GymRoutePageContent({
   params,

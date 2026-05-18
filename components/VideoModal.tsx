@@ -1,6 +1,6 @@
 "use client";
 import { VideoWithDetails } from "@/app/types/types";
-import { formatDate, formatViews } from "@/lib/utils";
+import { convertCmToFtIn, formatDate, formatViews } from "@/lib/utils";
 import MuxPlayer from "@mux/mux-player-react";
 import { useEffect } from "react";
 
@@ -73,7 +73,7 @@ export default function VideoModal({
             @{video.uploaded_by}{" "}
             {video.uploaded_by_height && (
               <span className="text-[10px] text-stone">
-                Height : {video.uploaded_by_height} cm
+                Height : {convertCmToFtIn(video.uploaded_by_height)} cm
               </span>
             )}
           </p>

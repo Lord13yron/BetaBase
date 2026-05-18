@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions",
+  description: "Read the BetaBase Terms and Conditions governing your use of the platform.",
+  robots: { index: false },
+};
+
 export default function Terms() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">

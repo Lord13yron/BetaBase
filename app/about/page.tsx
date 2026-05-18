@@ -1,13 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
-  title: "About — BetaBase",
-  description: "...",
+export const metadata: Metadata = {
+  title: "About",
+  description: "BetaBase is a video platform built by climbers, for climbers. Real beta from real people — shared freely so you can send your project.",
   openGraph: {
-    title: "About — BetaBase",
-    description: "...",
-    url: `${process.env.NEXT_PUBLIC_APP_URL}/about`,
-    siteName: "BetaBase",
+    title: "About | BetaBase",
+    description: "BetaBase is a video platform built by climbers, for climbers. Real beta from real people — shared freely so you can send your project.",
+    url: "/about",
   },
 };
 

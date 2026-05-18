@@ -12,9 +12,21 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "BetaBase - Climbing Gym and Route Management Platform",
+  title: {
+    default: "BetaBase | Climbing Beta Videos",
+    template: "%s | BetaBase",
+  },
   description:
-    "BetaBase is a comprehensive climbing gym and route management platform designed to streamline operations, enhance customer engagement, and foster a vibrant climbing community. With features for route setting, gym management, and community interaction, BetaBase empowers climbing gyms to thrive in the digital age.",
+    "BetaBase is a community-powered video platform where climbers share and discover beta for routes at their local gym. Browse free climbing beta videos — no account required.",
+  keywords: ["climbing beta", "climbing gym", "bouldering videos", "route beta", "climbing community"],
+  openGraph: {
+    siteName: "BetaBase",
+    type: "website",
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 const dmSerifDisplay = DM_Serif_Display({

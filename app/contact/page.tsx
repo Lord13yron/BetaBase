@@ -1,6 +1,16 @@
+import type { Metadata } from "next";
 import ContactForm from "./ContactForm";
 
-// app/contact/page.tsx
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with the BetaBase team — whether you manage a gym, have feedback, or want to collaborate.",
+  openGraph: {
+    title: "Contact | BetaBase",
+    description: "Get in touch with the BetaBase team — whether you manage a gym, have feedback, or want to collaborate.",
+    url: "/contact",
+  },
+};
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-chalk font-mono text-granite">

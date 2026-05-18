@@ -125,7 +125,7 @@ export function AuthButton({ isDrawer = false }: { isDrawer?: boolean }) {
   ) : (
     <div className="flex gap-2">
       <div
-        className={`text-[10px] tracking-widest uppercase text-stone hover:text-granite transition-colors ${isDrawer ? "block" : "hidden md:block"}`}
+        className={`text-[10px] tracking-widest uppercase text-stone hover:text-granite hover:cursor-pointer transition-colors ${isDrawer ? "block" : "hidden md:block"}`}
         onClick={() => router.push(`/auth/login`)}
       >
         Sign in

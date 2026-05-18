@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import EmailSection from "@/components/email-section";
+
+export const metadata: Metadata = {
+  title: "BetaBase | Climbing Beta Videos",
+  description: "Browse free community-uploaded beta videos for climbs at your gym. Find the sequence, watch real moves, and send your project.",
+  openGraph: {
+    title: "BetaBase | Climbing Beta Videos",
+    description: "Browse free community-uploaded beta videos for climbs at your gym. Find the sequence, watch real moves, and send your project.",
+    url: "/",
+  },
+};
 import GymSectionMain from "@/components/gym-section-main";
 import GymsTicker from "@/components/gyms-ticker";
 import GymSectionMainSkeleton from "@/components/GymSectionMainSkeleton";

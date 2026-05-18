@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   getGymById,
   getRoutesByGymId,
@@ -7,6 +8,30 @@ import GymPage from "./GymPage";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ gymId: string }>;
+}): Promise<Metadata> {
+  const { gymId } = await params;
+  const id = gymId.split("-").pop();
+  const numericId = Number(id);
+  if (!id || isNaN(numericId)) return {};
+
+  const gym = await getGymById(numericId);
+  if (!gym) return {};
+
+  return {
+    title: gym.name,
+    description: `Watch community-uploaded climbing beta videos for every route at ${gym.name} in ${gym.city}, ${gym.province}. Browse by wall, grade, and color.`,
+    openGraph: {
+      title: `${gym.name} | BetaBase`,
+      description: `Watch community-uploaded climbing beta videos for every route at ${gym.name} in ${gym.city}, ${gym.province}.`,
+      url: `/gyms/${gymId}`,
+    },
+  };
+}
 
 export default async function Page({
   params,

@@ -149,7 +149,6 @@ export default function VideoCard({
             )}
             {video.uploaded_by_height && !isProfile && (
               <span className="text-clay">
-                {/* Climber Height: {video.uploaded_by_height} cm */}
                 Climber Height: {convertCmToFtIn(video.uploaded_by_height)}
               </span>
             )}

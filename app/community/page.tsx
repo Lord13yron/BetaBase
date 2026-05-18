@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Community",
+  description: "Meet the climbers sharing beta on BetaBase. Browse community profiles and discover who's posting the best sends.",
+  openGraph: {
+    title: "Community | BetaBase",
+    description: "Meet the climbers sharing beta on BetaBase. Browse community profiles and discover who's posting the best sends.",
+    url: "/community",
+  },
+};
 import CommunityClient from "./CommunityClient";
 import { getAllUserProfiles} from "@/lib/data-services";
 

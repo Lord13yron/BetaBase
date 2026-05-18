@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Read the BetaBase Privacy Policy to understand how we collect, use, and protect your data.",
+  robots: { index: false },
+};
+
 export default function Privacy() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">

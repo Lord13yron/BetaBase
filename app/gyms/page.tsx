@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import GymsClient from "@/components/GymsClient";
+
+export const metadata: Metadata = {
+  title: "Find a Gym",
+  description: "Browse every climbing gym on BetaBase. Select your gym to watch community-uploaded beta videos for every climb on the wall.",
+  openGraph: {
+    title: "Find a Gym | BetaBase",
+    description: "Browse every climbing gym on BetaBase. Select your gym to watch community-uploaded beta videos for every climb on the wall.",
+    url: "/gyms",
+  },
+};
 import { getGyms } from "@/lib/data-services";
 import { createClient } from "@/lib/supabase/server";
 import { Suspense } from "react";

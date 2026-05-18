@@ -1,9 +1,30 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getProfileByUsername, getVideosByUser } from "@/lib/data-services";
 import PublicProfilePage from "./PublicProfilePage";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+  const profile = await getProfileByUsername(username);
+  if (!profile) return {};
+
+  return {
+    title: `@${username}`,
+    description: `Check out @${username}'s climbing beta videos on BetaBase.`,
+    openGraph: {
+      title: `@${username} | BetaBase`,
+      description: `Check out @${username}'s climbing beta videos on BetaBase.`,
+      url: `/community/${username}`,
+    },
+  };
+}
 
 import { Skeleton } from "@/components/ui/skeleton";
 
